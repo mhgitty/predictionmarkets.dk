@@ -9,7 +9,7 @@ export function Navbar() {
         padding: '18px 40px', maxWidth: '1280px', margin: '0 auto',
       }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <Image src="/logo.webp" alt="PredictionsMarkets.dk" width={180} height={40} style={{ height: '36px', width: 'auto' }} />
+          <Image src="/logo.webp" alt="PredictionMarkets.dk" width={220} height={52} style={{ height: '44px', width: 'auto' }} />
         </Link>
 
         <ul style={{ display: 'flex', gap: '32px', listStyle: 'none', margin: 0, padding: 0 }}>

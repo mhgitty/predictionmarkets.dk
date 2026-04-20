@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export function Footer() {
   return (
@@ -6,10 +7,9 @@ export function Footer() {
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '48px 40px 32px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '40px', marginBottom: '40px', paddingBottom: '40px', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
           <div>
-            <div style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontWeight: 800, fontSize: '18px', color: '#fff', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ width: '8px', height: '8px', background: '#e8a020', borderRadius: '50%', display: 'inline-block' }} />
-              PredictionsMarkets.dk
-            </div>
+            <Link href="/" style={{ display: 'inline-block', marginBottom: '14px' }}>
+              <Image src="/logo.webp" alt="PredictionMarkets.dk" width={200} height={46} style={{ height: '40px', width: 'auto' }} />
+            </Link>
             <p style={{ fontSize: '13.5px', color: 'rgba(232,230,224,0.4)', lineHeight: 1.7, maxWidth: '280px', fontWeight: 300 }}>
               Danmarks uafhængige guide til prediction markets.
             </p>
@@ -38,15 +38,9 @@ export function Footer() {
           ))}
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <p style={{ fontSize: '12.5px', color: 'rgba(232,230,224,0.25)' }}>
-            © {new Date().getFullYear()} PredictionsMarkets.dk — Spil ansvarligt. 18+
-          </p>
-          <div style={{ display: 'flex', gap: '20px' }}>
-            <Link href="https://www.stopspillet.dk" target="_blank" style={{ fontSize: '12px', color: 'rgba(232,230,224,0.25)', textDecoration: 'none' }}>StopSpillet.dk</Link>
-            <Link href="https://www.rofus.nu" target="_blank" style={{ fontSize: '12px', color: 'rgba(232,230,224,0.25)', textDecoration: 'none' }}>ROFUS.nu</Link>
-          </div>
-        </div>
+        <p style={{ fontSize: '12.5px', color: 'rgba(232,230,224,0.25)' }}>
+          © {new Date().getFullYear()} PredictionMarkets.dk — Spil ansvarligt. 18+
+        </p>
       </div>
     </footer>
   )

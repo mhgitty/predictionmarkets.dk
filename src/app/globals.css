@@ -28,9 +28,9 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 /* Prose styles for blog content */
-.prose-dark { color: rgb(203 213 225); line-height: 1.8; font-size: 17px; font-weight: 400; }
-.prose-dark h2 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 26px; font-weight: 700; color: #fff; margin: 2.5rem 0 1rem; letter-spacing: -0.04em; }
-.prose-dark h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 20px; font-weight: 600; color: #fff; margin: 2rem 0 0.75rem; }
+.prose-dark { color: rgb(203 213 225); line-height: 1.8; font-size: 16px; font-weight: 400; }
+.prose-dark h2 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 30px; font-weight: 700; color: #fff; margin: 2.5rem 0 1rem; letter-spacing: -0.04em; }
+.prose-dark h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 23px; font-weight: 600; color: #fff; margin: 2rem 0 0.75rem; }
 .prose-dark p { margin-bottom: 1.4rem; }
 .prose-dark a { color: var(--amber); text-decoration: underline; text-underline-offset: 3px; }
 .prose-dark ul, .prose-dark ol { margin: 1.2rem 0 1.4rem 1.5rem; }

@@ -6,6 +6,7 @@ import { FaqBlock } from '@/components/FaqBlock'
 import { CalloutBlock } from '@/components/CalloutBlock'
 import { LatestPostsBlock } from '@/components/LatestPostsBlock'
 import { LiveTicker } from '@/components/LiveTicker'
+import { HeroWidget } from '@/components/HeroWidget'
 import { getPosts, getCategories, getHomePage } from '@/lib/sanity'
 import { PortableText } from '@portabletext/react'
 import Link from 'next/link'
@@ -30,13 +31,13 @@ const DEFAULTS = {
 function makePtComponents(posts: any[]) { return {
   block: {
     h2: ({ children }: any) => (
-      <h2 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '26px', fontWeight: 700, color: '#fff', letterSpacing: '-0.03em', marginBottom: '16px', marginTop: '40px' }}>{children}</h2>
+      <h2 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '30px', fontWeight: 700, color: '#fff', letterSpacing: '-0.03em', marginBottom: '16px', marginTop: '40px' }}>{children}</h2>
     ),
     h3: ({ children }: any) => (
-      <h3 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '20px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', marginBottom: '12px', marginTop: '32px' }}>{children}</h3>
+      <h3 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '23px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', marginBottom: '12px', marginTop: '32px' }}>{children}</h3>
     ),
     normal: ({ children }: any) => (
-      <p style={{ fontSize: '17px', color: 'rgb(203 213 225)', lineHeight: 1.75, marginBottom: '16px', fontWeight: 400 }}>{children}</p>
+      <p style={{ fontSize: '16px', color: 'rgb(203 213 225)', lineHeight: 1.75, marginBottom: '16px', fontWeight: 400 }}>{children}</p>
     ),
     blockquote: ({ children }: any) => (
       <blockquote style={{ borderLeft: '3px solid #e8a020', paddingLeft: '16px', margin: '24px 0', color: 'rgba(232,230,224,0.6)', fontStyle: 'italic' }}>{children}</blockquote>
@@ -117,24 +118,34 @@ export default async function HomePage() {
 
       {/* Hero */}
       <section style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 40px 64px' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(232,160,32,0.1)', border: '1px solid rgba(232,160,32,0.25)', borderRadius: '20px', padding: '5px 14px', fontSize: '11.5px', fontWeight: 500, color: '#e8a020', letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '28px' }}>
-          <span style={{ width: '5px', height: '5px', background: '#e8a020', borderRadius: '50%', display: 'inline-block' }} />
-          {hero.badge}
-        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '64px' }}>
+          {/* Left: text content */}
+          <div style={{ flex: '1 1 0', minWidth: 0 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(232,160,32,0.1)', border: '1px solid rgba(232,160,32,0.25)', borderRadius: '20px', padding: '5px 14px', fontSize: '11.5px', fontWeight: 500, color: '#e8a020', letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '28px' }}>
+              <span style={{ width: '5px', height: '5px', background: '#e8a020', borderRadius: '50%', display: 'inline-block' }} />
+              {hero.badge}
+            </div>
 
-        <HeroHeading heading={hero.heading} accent={hero.accent} />
+            <HeroHeading heading={hero.heading} accent={hero.accent} />
 
-        <p style={{ fontSize: '17px', lineHeight: 1.7, color: 'rgba(232,230,224,0.6)', maxWidth: '540px', marginBottom: '40px', fontWeight: 300 }}>
-          {hero.subtext}
-        </p>
+            <p style={{ fontSize: '16px', lineHeight: 1.7, color: 'rgba(232,230,224,0.6)', maxWidth: '500px', marginBottom: '40px', fontWeight: 300 }}>
+              {hero.subtext}
+            </p>
 
-        <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-          <Link href="/blog" style={{ background: '#e8a020', color: '#0f172a', padding: '13px 28px', borderRadius: '7px', fontSize: '14.5px', fontWeight: 600, textDecoration: 'none' }}>
-            {hero.primaryBtn}
-          </Link>
-          <Link href="/platforme" style={{ background: 'transparent', color: 'rgba(232,230,224,0.7)', border: '1px solid rgba(255,255,255,0.15)', padding: '13px 28px', borderRadius: '7px', fontSize: '14.5px', textDecoration: 'none' }}>
-            {hero.secondaryBtn}
-          </Link>
+            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+              <Link href="/blog" style={{ background: '#e8a020', color: '#0f172a', padding: '13px 28px', borderRadius: '7px', fontSize: '14.5px', fontWeight: 600, textDecoration: 'none' }}>
+                {hero.primaryBtn}
+              </Link>
+              <Link href="/platforme" style={{ background: 'transparent', color: 'rgba(232,230,224,0.7)', border: '1px solid rgba(255,255,255,0.15)', padding: '13px 28px', borderRadius: '7px', fontSize: '14.5px', textDecoration: 'none' }}>
+                {hero.secondaryBtn}
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: live market widget */}
+          <div style={{ flexShrink: 0, width: '380px', display: 'flex', alignItems: 'center' }}>
+            <HeroWidget />
+          </div>
         </div>
       </section>
 

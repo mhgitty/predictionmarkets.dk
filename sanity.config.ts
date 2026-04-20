@@ -2,10 +2,11 @@ import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './src/sanity/schemas'
+import { WideStudioLayout } from './src/sanity/StudioLayout'
 
 export default defineConfig({
   name: 'default',
-  title: 'PredictionsMarkets.dk',
+  title: 'PredictionMarkets.dk',
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
   plugins: [
@@ -44,5 +45,10 @@ export default defineConfig({
   ],
   schema: {
     types: schemaTypes,
+  },
+  studio: {
+    components: {
+      layout: WideStudioLayout,
+    },
   },
 })
