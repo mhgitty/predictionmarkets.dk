@@ -53,6 +53,15 @@ function makePtComponents(posts: any[]) { return {
     faqBlock: ({ value }: any) => <FaqBlock value={value} />,
     calloutBlock: ({ value }: any) => <CalloutBlock value={value} />,
     latestPostsBlock: ({ value }: any) => <LatestPostsBlock value={value} posts={posts} />,
+    image: ({ value }: any) => (
+      value?.asset?._ref ? (
+        <img
+          src={`https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/production/${value.asset._ref.replace('image-', '').replace(/-(\w+)$/, '.$1')}`}
+          alt={value.alt || ''}
+          style={{ width: '100%', borderRadius: '8px', margin: '24px 0' }}
+        />
+      ) : null
+    ),
   },
 }}
 
