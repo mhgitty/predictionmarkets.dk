@@ -117,8 +117,8 @@ export default async function HomePage() {
       <LiveTicker pinnedIds={homePage?.pinnedMarketIds ?? []} />
 
       {/* Hero */}
-      <section style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 40px 64px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '64px' }}>
+      <section className="rp-hero-section" style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        <div className="rp-hero-layout">
           {/* Left: text content */}
           <div style={{ flex: '1 1 0', minWidth: 0 }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(232,160,32,0.1)', border: '1px solid rgba(232,160,32,0.25)', borderRadius: '20px', padding: '5px 14px', fontSize: '11.5px', fontWeight: 500, color: '#e8a020', letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '28px' }}>
@@ -143,7 +143,7 @@ export default async function HomePage() {
           </div>
 
           {/* Right: live market widget */}
-          <div style={{ flexShrink: 0, width: '380px', display: 'flex', alignItems: 'center' }}>
+          <div className="rp-hero-widget-wrap">
             <HeroWidget />
           </div>
         </div>
@@ -151,9 +151,9 @@ export default async function HomePage() {
 
       {/* Stats bar */}
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 40px', display: 'flex' }}>
+        <div className="rp-stats-wrap">
           {stats.map((stat, i) => (
-            <div key={i} style={{ flex: 1, padding: '24px 32px', borderRight: i < stats.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none' }}>
+            <div key={i} className="rp-stat-cell" style={{ borderRight: i < stats.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none' }}>
               <div style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '28px', fontWeight: 700, color: '#fff', letterSpacing: '-0.03em', marginBottom: '4px' }}>{stat.value}</div>
               <div style={{ fontSize: '12px', color: 'rgba(232,230,224,0.35)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>{stat.label}</div>
             </div>
@@ -162,7 +162,7 @@ export default async function HomePage() {
       </div>
 
       {/* Articles */}
-      <section style={{ maxWidth: '1280px', margin: '0 auto', padding: '64px 40px' }}>
+      <section className="rp-section">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '32px' }}>
           <h2 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '22px', fontWeight: 700, color: '#fff', letterSpacing: '-0.03em' }}>Seneste guides & artikler</h2>
           <Link href="/blog" style={{ fontSize: '13px', color: '#e8a020', textDecoration: 'none', fontWeight: 500 }}>Se alle →</Link>
@@ -174,12 +174,12 @@ export default async function HomePage() {
             <Link href="/studio" style={{ color: '#e8a020', fontSize: '14px', marginTop: '12px', display: 'inline-block' }}>Tilføj indhold i Sanity Studio →</Link>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '16px', alignItems: 'start' }}>
+          <div className="rp-articles-grid">
             {featuredPost && <PostCard {...featuredPost} featured />}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="rp-articles-col">
               {restPosts.slice(0, 2).map((post: any) => <PostCard key={post._id} {...post} />)}
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="rp-articles-col">
               {restPosts.slice(2, 4).map((post: any) => <PostCard key={post._id} {...post} />)}
             </div>
           </div>
@@ -189,7 +189,7 @@ export default async function HomePage() {
       {/* Categories */}
       {categories.length > 0 && (
         <section style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-          <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '64px 40px' }}>
+          <div className="rp-section">
             <h2 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '22px', fontWeight: 700, color: '#fff', letterSpacing: '-0.03em', marginBottom: '28px' }}>Udforsk emner</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '12px' }}>
               {categories.map((cat: any) => (
@@ -210,7 +210,7 @@ export default async function HomePage() {
       {/* Body content from Sanity (FAQ, callouts, rich text etc.) */}
       {homePage?.body?.length > 0 && (
         <section style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-          <div style={{ maxWidth: '1080px', margin: '0 auto', padding: '64px 40px' }}>
+          <div className="rp-section-wide">
             <PortableText value={homePage.body} components={makePtComponents(posts)} />
           </div>
         </section>

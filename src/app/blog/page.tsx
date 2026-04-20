@@ -19,9 +19,9 @@ export default async function BlogPage() {
   return (
     <>
       <Navbar />
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '64px 40px' }}>
+      <div className="rp-section">
         <div style={{ marginBottom: '48px' }}>
-          <h1 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '42px', fontWeight: 800, color: '#fff', letterSpacing: '-0.04em', marginBottom: '12px' }}>
+          <h1 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 800, color: '#fff', letterSpacing: '-0.04em', marginBottom: '12px' }}>
             Guides & artikler
           </h1>
           <p style={{ fontSize: '16px', color: 'rgba(232,230,224,0.5)', fontWeight: 300 }}>

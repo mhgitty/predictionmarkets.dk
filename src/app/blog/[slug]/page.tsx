@@ -126,13 +126,13 @@ export default async function PostPage({ params }: Props) {
         />
       )}
       <Navbar />
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '56px 40px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 280px', gap: '64px', alignItems: 'start' }}>
+      <div className="rp-post-wrap">
+        <div className="rp-post-layout">
 
           {/* Article */}
           <article>
             {/* Breadcrumb */}
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '24px' }}>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap' }}>
               <Link href="/" style={{ fontSize: '13px', color: 'rgba(232,230,224,0.35)', textDecoration: 'none' }}>Hjem</Link>
               <span style={{ color: 'rgba(232,230,224,0.2)' }}>/</span>
               <Link href="/blog" style={{ fontSize: '13px', color: 'rgba(232,230,224,0.35)', textDecoration: 'none' }}>Guides</Link>
@@ -150,11 +150,11 @@ export default async function PostPage({ params }: Props) {
               </span>
             )}
 
-            <h1 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: 'clamp(30px, 4vw, 44px)', fontWeight: 800, color: '#fff', lineHeight: 1.1, letterSpacing: '-0.04em', marginBottom: '20px' }}>
+            <h1 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: 'clamp(26px, 5vw, 44px)', fontWeight: 800, color: '#fff', lineHeight: 1.1, letterSpacing: '-0.04em', marginBottom: '20px' }}>
               {post.title}
             </h1>
 
-            <div style={{ display: 'flex', gap: '20px', paddingBottom: '32px', borderBottom: '1px solid rgba(255,255,255,0.07)', marginBottom: '40px' }}>
+            <div style={{ display: 'flex', gap: '20px', paddingBottom: '32px', borderBottom: '1px solid rgba(255,255,255,0.07)', marginBottom: '40px', flexWrap: 'wrap' }}>
               {date && <span style={{ fontSize: '13px', color: 'rgba(232,230,224,0.4)' }}>{date}</span>}
               {post.readingTime && <span style={{ fontSize: '13px', color: 'rgba(232,230,224,0.4)' }}>{post.readingTime} min læsning</span>}
             </div>
@@ -162,11 +162,18 @@ export default async function PostPage({ params }: Props) {
             <div className="prose-dark">
               {post.body && <PortableText value={post.body} components={ptComponents} />}
             </div>
+
+            {/* Mobile CTA — shown below article on small screens */}
+            <div className="rp-post-sidebar-cta" style={{ display: 'none', marginTop: '40px', background: 'rgba(232,160,32,0.07)', border: '1px solid rgba(232,160,32,0.2)', borderRadius: '12px', padding: '24px' }}>
+              <h4 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '15px', fontWeight: 700, color: '#fff', marginBottom: '10px' }}>Klar til at handle?</h4>
+              <p style={{ fontSize: '13px', color: 'rgba(232,230,224,0.5)', lineHeight: 1.6, marginBottom: '16px', fontWeight: 300 }}>Se vores sammenligning af de bedste prediction market platforme.</p>
+              <Link href="/platforme" style={{ display: 'block', background: '#e8a020', color: '#0f172a', padding: '10px 16px', borderRadius: '7px', fontSize: '13.5px', fontWeight: 600, textDecoration: 'none', textAlign: 'center' }}>Sammenlign platforme</Link>
+            </div>
           </article>
 
-          {/* Sticky sidebar */}
-          <aside style={{ position: 'sticky', top: '32px' }}>
-            <div style={{ background: '#1e293b', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px', padding: '24px', marginBottom: '16px' }}>
+          {/* Sticky sidebar — desktop only */}
+          <aside className="rp-post-sidebar">
+            <div className="rp-hide-mobile" style={{ background: '#1e293b', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px', padding: '24px', marginBottom: '16px' }}>
               <h4 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '13px', fontWeight: 600, color: 'rgba(232,230,224,0.4)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: '16px' }}>
                 Indholdsfortegnelse
               </h4>
@@ -175,7 +182,7 @@ export default async function PostPage({ params }: Props) {
               </p>
             </div>
 
-            <div style={{ background: 'rgba(232,160,32,0.07)', border: '1px solid rgba(232,160,32,0.2)', borderRadius: '12px', padding: '24px' }}>
+            <div className="rp-hide-mobile" style={{ background: 'rgba(232,160,32,0.07)', border: '1px solid rgba(232,160,32,0.2)', borderRadius: '12px', padding: '24px' }}>
               <h4 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '15px', fontWeight: 700, color: '#fff', marginBottom: '10px' }}>
                 Klar til at handle?
               </h4>

@@ -15,9 +15,9 @@ export default async function PlatformerPage() {
   return (
     <>
       <Navbar />
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '64px 40px' }}>
+      <div className="rp-section">
         <div style={{ marginBottom: '48px' }}>
-          <h1 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '42px', fontWeight: 800, color: '#fff', letterSpacing: '-0.04em', marginBottom: '12px' }}>
+          <h1 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: 'clamp(28px, 6vw, 42px)', fontWeight: 800, color: '#fff', letterSpacing: '-0.04em', marginBottom: '12px' }}>
             Sammenlign platforme
           </h1>
           <p style={{ fontSize: '16px', color: 'rgba(232,230,224,0.5)', fontWeight: 300 }}>
@@ -38,56 +38,55 @@ export default async function PlatformerPage() {
                 border: '1px solid rgba(255,255,255,0.07)',
                 borderRadius: '12px',
                 padding: '24px 28px',
-                display: 'grid',
-                gridTemplateColumns: '48px 200px 1fr auto',
-                gap: '24px',
-                alignItems: 'center',
               }}>
-                <div style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '22px', fontWeight: 800, color: i === 0 ? '#e8a020' : 'rgba(232,230,224,0.2)' }}>
-                  {i + 1}
-                </div>
-
-                <div>
-                  <div style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '18px', fontWeight: 700, color: '#fff', marginBottom: '8px' }}>
-                    {platform.name}
+                {/* Top row: rank + name + CTA */}
+                <div className="rp-platform-row">
+                  <div className="rp-platform-num" style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '22px', fontWeight: 800, color: i === 0 ? '#e8a020' : 'rgba(232,230,224,0.2)' }}>
+                    {i + 1}
                   </div>
-                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                    {platform.badges?.map((badge: string, j: number) => (
-                      <span key={j} style={{ background: 'rgba(232,160,32,0.1)', color: '#e8a020', fontSize: '10px', fontWeight: 500, padding: '2px 8px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
-                        {badge}
-                      </span>
-                    ))}
+
+                  <div className="rp-platform-name-col">
+                    <div style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '18px', fontWeight: 700, color: '#fff', marginBottom: '8px' }}>
+                      {platform.name}
+                    </div>
+                    <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                      {platform.badges?.map((badge: string, j: number) => (
+                        <span key={j} style={{ background: 'rgba(232,160,32,0.1)', color: '#e8a020', fontSize: '10px', fontWeight: 500, padding: '2px 8px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+                          {badge}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                <div style={{ display: 'flex', gap: '32px' }}>
-                  {platform.minDeposit && (
-                    <div>
-                      <div style={{ fontSize: '11px', color: 'rgba(232,230,224,0.3)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>Min. indbetaling</div>
-                      <div style={{ fontSize: '14px', color: '#fff', fontWeight: 500 }}>{platform.minDeposit}</div>
-                    </div>
-                  )}
-                  {platform.fees && (
-                    <div>
-                      <div style={{ fontSize: '11px', color: 'rgba(232,230,224,0.3)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>Gebyrer</div>
-                      <div style={{ fontSize: '14px', color: '#fff', fontWeight: 500 }}>{platform.fees}</div>
-                    </div>
-                  )}
-                  {platform.rating && (
-                    <div>
-                      <div style={{ fontSize: '11px', color: 'rgba(232,230,224,0.3)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>Vurdering</div>
-                      <div style={{ fontSize: '18px', color: '#e8a020', fontWeight: 700, fontFamily: 'Bricolage Grotesque, sans-serif' }}>{platform.rating}/10</div>
-                    </div>
-                  )}
-                </div>
+                  <div className="rp-platform-stats">
+                    {platform.minDeposit && (
+                      <div>
+                        <div style={{ fontSize: '11px', color: 'rgba(232,230,224,0.3)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>Min. indbetaling</div>
+                        <div style={{ fontSize: '14px', color: '#fff', fontWeight: 500 }}>{platform.minDeposit}</div>
+                      </div>
+                    )}
+                    {platform.fees && (
+                      <div>
+                        <div style={{ fontSize: '11px', color: 'rgba(232,230,224,0.3)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>Gebyrer</div>
+                        <div style={{ fontSize: '14px', color: '#fff', fontWeight: 500 }}>{platform.fees}</div>
+                      </div>
+                    )}
+                    {platform.rating && (
+                      <div>
+                        <div style={{ fontSize: '11px', color: 'rgba(232,230,224,0.3)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>Vurdering</div>
+                        <div style={{ fontSize: '18px', color: '#e8a020', fontWeight: 700, fontFamily: 'Bricolage Grotesque, sans-serif' }}>{platform.rating}/10</div>
+                      </div>
+                    )}
+                  </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', minWidth: '140px' }}>
-                  <a href={platform.affiliateUrl} target="_blank" rel="noopener noreferrer sponsored" style={{ background: '#e8a020', color: '#0f172a', padding: '10px 20px', borderRadius: '7px', fontSize: '13.5px', fontWeight: 600, textDecoration: 'none', textAlign: 'center' }}>
-                    Besøg platform
-                  </a>
-                  <Link href={`/platforme/${platform.slug.current}`} style={{ color: 'rgba(232,230,224,0.4)', fontSize: '12.5px', textDecoration: 'none', textAlign: 'center' }}>
-                    Læs anmeldelse →
-                  </Link>
+                  <div className="rp-platform-actions" style={{ display: 'flex', flexDirection: 'column', gap: '8px', minWidth: '140px' }}>
+                    <a href={platform.affiliateUrl} target="_blank" rel="noopener noreferrer sponsored" style={{ background: '#e8a020', color: '#0f172a', padding: '10px 20px', borderRadius: '7px', fontSize: '13.5px', fontWeight: 600, textDecoration: 'none', textAlign: 'center' }}>
+                      Besøg platform
+                    </a>
+                    <Link href={`/platforme/${platform.slug.current}`} style={{ color: 'rgba(232,230,224,0.4)', fontSize: '12.5px', textDecoration: 'none', textAlign: 'center' }}>
+                      Læs anmeldelse →
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
