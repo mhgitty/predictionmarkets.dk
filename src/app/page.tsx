@@ -36,7 +36,7 @@ function makePtComponents(posts: any[]) { return {
       <h3 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '20px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', marginBottom: '12px', marginTop: '32px' }}>{children}</h3>
     ),
     normal: ({ children }: any) => (
-      <p style={{ fontSize: '15px', color: 'rgb(203 213 225)', lineHeight: 1.75, marginBottom: '16px', fontWeight: 400, fontSize: '17px' }}>{children}</p>
+      <p style={{ fontSize: '17px', color: 'rgb(203 213 225)', lineHeight: 1.75, marginBottom: '16px', fontWeight: 400 }}>{children}</p>
     ),
     blockquote: ({ children }: any) => (
       <blockquote style={{ borderLeft: '3px solid #e8a020', paddingLeft: '16px', margin: '24px 0', color: 'rgba(232,230,224,0.6)', fontStyle: 'italic' }}>{children}</blockquote>
