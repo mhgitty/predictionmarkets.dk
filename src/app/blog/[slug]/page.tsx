@@ -92,7 +92,7 @@ function buildArticleJsonLd(post: any, url: string) {
     publisher: {
       '@type': 'Organization',
       name: 'PredictionsMarkets.dk',
-      url: 'https://predictionsmarkets.dk',
+      url: 'https://predictionmarkets.dk',
     },
   }
 }
@@ -108,7 +108,7 @@ export default async function PostPage({ params }: Props) {
     ? new Date(post.publishedAt).toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' })
     : null
 
-  const pageUrl = `https://predictionsmarkets.dk/blog/${slug}`
+  const pageUrl = `https://predictionmarkets.dk/blog/${slug}`
   const faqJsonLd = buildFaqJsonLd(post.body)
   const articleJsonLd = buildArticleJsonLd(post, pageUrl)
 
