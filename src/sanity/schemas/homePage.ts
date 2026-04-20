@@ -4,8 +4,6 @@ export const homePageType = defineType({
   name: 'homePage',
   title: 'Forside',
   type: 'document',
-  // Singleton — only one document of this type should exist
-  __experimental_actions: ['update', 'publish'],
   groups: [
     { name: 'hero', title: 'Hero' },
     { name: 'ticker', title: 'Ticker' },
