@@ -1,26 +1,53 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --navy: #0f172a;
+  --navy-800: #1e293b;
+  --amber: #e8a020;
+  --border: rgba(255,255,255,0.08);
+  --muted: rgba(203,213,225,0.55);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+* { box-sizing: border-box; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #0f172a;
+  color: rgb(203 213 225);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* Prose styles for blog content */
+.prose-dark { color: rgb(203 213 225); line-height: 1.8; font-size: 17px; font-weight: 400; }
+.prose-dark h2 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 26px; font-weight: 700; color: #fff; margin: 2.5rem 0 1rem; letter-spacing: -0.04em; }
+.prose-dark h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 20px; font-weight: 600; color: #fff; margin: 2rem 0 0.75rem; }
+.prose-dark p { margin-bottom: 1.4rem; }
+.prose-dark a { color: var(--amber); text-decoration: underline; text-underline-offset: 3px; }
+.prose-dark ul, .prose-dark ol { margin: 1.2rem 0 1.4rem 1.5rem; }
+.prose-dark li { margin-bottom: 0.5rem; }
+.prose-dark blockquote { border-left: 3px solid var(--amber); padding-left: 1.25rem; margin: 1.5rem 0; color: rgba(232,230,224,0.6); font-style: italic; }
+.prose-dark strong { color: #fff; font-weight: 500; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
