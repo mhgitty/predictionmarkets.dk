@@ -41,7 +41,8 @@ export function HeroWidget() {
       backdropFilter: 'blur(12px)',
       boxShadow: '0 0 60px rgba(232,160,32,0.06), 0 24px 48px rgba(0,0,0,0.3)',
       width: '100%',
-      maxWidth: '380px',
+      maxWidth: '100%',
+      boxSizing: 'border-box' as const,
     }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
