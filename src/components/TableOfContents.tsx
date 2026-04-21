@@ -80,7 +80,7 @@ export function TableOfContents({ body }: { body: any[] }) {
                   color: activeId === id ? '#e8a020' : 'rgba(232,230,224,0.55)',
                   textDecoration: 'none',
                   padding: '4px 0',
-                  paddingLeft: level === 'h3' ? '12px' : level === 'h4' ? '24px' : '0',
+                  paddingLeft: level === 'h3' ? '20px' : level === 'h4' ? '32px' : '8px',
                   borderLeft: activeId === id ? '2px solid #e8a020' : '2px solid transparent',
                   transition: 'color 0.15s, border-color 0.15s',
                 }}

@@ -95,6 +95,11 @@ h1,h2,h3,h4,h5,h6 {
 .rp-platform-row { display: grid; grid-template-columns: 48px 200px 1fr auto; gap: 24px; align-items: center; }
 .rp-platform-stats { display: flex; gap: 32px; }
 
+/* Pros/cons block */
+.rp-pros-cons-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.rp-pros-col { border-right: 1px solid rgba(255,255,255,0.07); }
+.rp-cons-col { }
+
 /* Utilities */
 .rp-hide-mobile { }
 
@@ -143,6 +148,10 @@ h1,h2,h3,h4,h5,h6 {
   /* Platform card inner padding on mobile */
   .rp-platform-row { padding: 0; }
   [class*="rp-platform"] + div { padding: 16px !important; }
+
+  /* Pros/cons block — stack vertically on mobile */
+  .rp-pros-cons-grid { grid-template-columns: 1fr; }
+  .rp-pros-col { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
 
   /* Utilities */
   .rp-hide-mobile { display: none !important; }

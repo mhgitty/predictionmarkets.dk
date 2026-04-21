@@ -32,9 +32,9 @@ export function ProsConsBlock({ value }: ProsConsBlockProps) {
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+      <div className="rp-pros-cons-grid">
         {/* Pros */}
-        <div style={{ padding: '20px 24px', borderRight: '1px solid rgba(255,255,255,0.07)' }}>
+        <div className="rp-pros-col" style={{ padding: '20px 24px' }}>
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -53,7 +53,7 @@ export function ProsConsBlock({ value }: ProsConsBlockProps) {
             {pros.map((pro, i) => (
               <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
                 <span style={{ color: '#4ade80', fontSize: '14px', flexShrink: 0, marginTop: '1px' }}>+</span>
-                <span style={{ fontSize: '17px', color: 'rgb(203 213 225)', lineHeight: 1.7 }}>{pro}</span>
+                <span style={{ fontSize: '15px', color: 'rgb(203 213 225)', lineHeight: 1.7 }}>{pro}</span>
               </li>
             ))}
             {pros.length === 0 && (
@@ -63,7 +63,7 @@ export function ProsConsBlock({ value }: ProsConsBlockProps) {
         </div>
 
         {/* Cons */}
-        <div style={{ padding: '20px 24px' }}>
+        <div className="rp-cons-col" style={{ padding: '20px 24px' }}>
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -82,7 +82,7 @@ export function ProsConsBlock({ value }: ProsConsBlockProps) {
             {cons.map((con, i) => (
               <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
                 <span style={{ color: '#f87171', fontSize: '14px', flexShrink: 0, marginTop: '1px' }}>−</span>
-                <span style={{ fontSize: '17px', color: 'rgb(203 213 225)', lineHeight: 1.7 }}>{con}</span>
+                <span style={{ fontSize: '15px', color: 'rgb(203 213 225)', lineHeight: 1.7 }}>{con}</span>
               </li>
             ))}
             {cons.length === 0 && (
