@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { headingId } from '@/lib/headingId'
 
 interface Heading {
   id: string
@@ -21,15 +22,6 @@ function extractHeadings(body: any[]): Heading[] {
       }
     })
     .filter((h) => h.text.length > 0)
-}
-
-function headingId(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w\-æøå]/g, '')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
 }
 
 export function TableOfContents({ body }: { body: any[] }) {
@@ -107,5 +99,4 @@ export function TableOfContents({ body }: { body: any[] }) {
   )
 }
 
-// Export the helper so the page renderer can add IDs to headings
-export { headingId }
+export { headingId } from '@/lib/headingId'
