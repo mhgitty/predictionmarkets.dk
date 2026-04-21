@@ -87,6 +87,20 @@ export async function getPlatforms() {
   )
 }
 
+export async function getPageBySlug(slug: string) {
+  return client.fetch(
+    `*[_type == "page" && slug.current == $slug][0] {
+      _id,
+      title,
+      slug,
+      body,
+      metaTitle,
+      metaDescription,
+    }`,
+    { slug }
+  )
+}
+
 export async function getHomePage() {
   return client.fetch(
     `*[_type == "homePage"][0] {

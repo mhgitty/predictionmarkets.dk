@@ -15,8 +15,10 @@ export async function POST(request: NextRequest) {
     // Revalidate relevant paths based on document type
     if (type === 'post') {
       revalidatePath('/blog')
-      revalidatePath('/blog/[slug]', 'page')
+      revalidatePath('/[slug]', 'page')
       revalidatePath('/')
+    } else if (type === 'page') {
+      revalidatePath('/[slug]', 'page')
     } else if (type === 'platform') {
       revalidatePath('/platforme')
       revalidatePath('/platforme/[slug]', 'page')

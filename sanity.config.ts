@@ -31,6 +31,10 @@ export default defineConfig({
               .schemaType('post')
               .child(S.documentTypeList('post').title('Alle indlæg')),
             S.listItem()
+              .title('Sider')
+              .schemaType('page')
+              .child(S.documentTypeList('page').title('Alle sider')),
+            S.listItem()
               .title('Forfattere')
               .schemaType('author')
               .child(S.documentTypeList('author').title('Forfattere')),
