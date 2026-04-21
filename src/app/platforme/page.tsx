@@ -7,6 +7,9 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Sammenlign Prediction Market Platforme',
   description: 'Sammenlign de bedste prediction market platforme. Se gebyrer, markeder, og find den bedste platform for dig.',
+  alternates: {
+    canonical: 'https://predictionmarkets.dk/platforme',
+  },
 }
 
 export default async function PlatformerPage() {

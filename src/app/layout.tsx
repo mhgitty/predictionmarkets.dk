@@ -7,6 +7,9 @@ export const metadata: Metadata = {
     template: '%s | PredictionMarkets.dk',
   },
   description: 'Alt du behøver at vide om prediction markets på dansk. Guides, platformanmeldelser og strategier.',
+  alternates: {
+    canonical: 'https://predictionmarkets.dk',
+  },
   icons: {
     icon: [
       { url: '/favicon.png', type: 'image/png' },

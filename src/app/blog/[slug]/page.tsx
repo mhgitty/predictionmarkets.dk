@@ -8,6 +8,11 @@ import type { Metadata } from 'next'
 import { ProsConsBlock } from '@/components/ProsConsBlock'
 import { FaqBlock } from '@/components/FaqBlock'
 import { CalloutBlock } from '@/components/CalloutBlock'
+import { TableOfContents, headingId } from '@/components/TableOfContents'
+import { AuthorMeta } from '@/components/AuthorMeta'
+import { AuthorBio } from '@/components/AuthorBio'
+
+const SITE_URL = 'https://predictionmarkets.dk'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -18,6 +23,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.metaTitle || post.title,
     description: post.metaDescription || post.excerpt,
+    alternates: {
+      canonical: `${SITE_URL}/blog/${slug}`,
+    },
   }
 }
 
@@ -26,11 +34,21 @@ export async function generateStaticParams() {
   return posts.map((post: any) => ({ slug: post.slug.current }))
 }
 
+// Portable Text components — headings get IDs for TOC anchor links
 const ptComponents = {
   block: {
-    h2: ({ children }: any) => <h2>{children}</h2>,
-    h3: ({ children }: any) => <h3>{children}</h3>,
-    h4: ({ children }: any) => <h4>{children}</h4>,
+    h2: ({ children, value }: any) => {
+      const text = value?.children?.map((c: any) => c.text).join('') || ''
+      return <h2 id={headingId(text)}>{children}</h2>
+    },
+    h3: ({ children, value }: any) => {
+      const text = value?.children?.map((c: any) => c.text).join('') || ''
+      return <h3 id={headingId(text)}>{children}</h3>
+    },
+    h4: ({ children, value }: any) => {
+      const text = value?.children?.map((c: any) => c.text).join('') || ''
+      return <h4 id={headingId(text)}>{children}</h4>
+    },
     blockquote: ({ children }: any) => <blockquote>{children}</blockquote>,
     normal: ({ children }: any) => <p>{children}</p>,
   },
@@ -55,26 +73,21 @@ const ptComponents = {
   },
 }
 
-// ── Structured data helpers ───────────────────────────────────────────────────
+// ── Structured data ───────────────────────────────────────────────────────────
 
 function buildFaqJsonLd(body: any[]) {
   if (!body?.length) return null
   const faqBlocks = body.filter((b: any) => b._type === 'faqBlock')
   if (!faqBlocks.length) return null
-
   const allItems = faqBlocks.flatMap((b: any) => b.items ?? [])
   if (!allItems.length) return null
-
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: allItems.map((item: any) => ({
       '@type': 'Question',
       name: item.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.answer,
-      },
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
     })),
   }
 }
@@ -86,13 +99,20 @@ function buildArticleJsonLd(post: any, url: string) {
     headline: post.title,
     description: post.metaDescription || post.excerpt || '',
     datePublished: post.publishedAt ?? undefined,
-    dateModified: post.publishedAt ?? undefined,
+    dateModified: (post.lastUpdated || post.publishedAt) ?? undefined,
     url,
     inLanguage: 'da',
+    ...(post.author?.imageUrl ? {
+      author: {
+        '@type': 'Person',
+        name: post.author.name,
+        image: post.author.imageUrl,
+      },
+    } : {}),
     publisher: {
       '@type': 'Organization',
-      name: 'PredictionsMarkets.dk',
-      url: 'https://predictionmarkets.dk',
+      name: 'PredictionMarkets.dk',
+      url: SITE_URL,
     },
   }
 }
@@ -108,28 +128,23 @@ export default async function PostPage({ params }: Props) {
     ? new Date(post.publishedAt).toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' })
     : null
 
-  const pageUrl = `https://predictionmarkets.dk/blog/${slug}`
+  const pageUrl = `${SITE_URL}/blog/${slug}`
   const faqJsonLd = buildFaqJsonLd(post.body)
   const articleJsonLd = buildArticleJsonLd(post, pageUrl)
 
   return (
     <>
       {/* Structured data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       {faqJsonLd && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       )}
+
       <Navbar />
       <div className="rp-post-wrap">
         <div className="rp-post-layout">
 
-          {/* Article */}
+          {/* ── Article ── */}
           <article>
             {/* Breadcrumb */}
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap' }}>
@@ -154,34 +169,49 @@ export default async function PostPage({ params }: Props) {
               {post.title}
             </h1>
 
-            <div style={{ display: 'flex', gap: '20px', paddingBottom: '32px', borderBottom: '1px solid rgba(255,255,255,0.07)', marginBottom: '40px', flexWrap: 'wrap' }}>
-              {date && <span style={{ fontSize: '13px', color: 'rgba(232,230,224,0.4)' }}>{date}</span>}
-              {post.readingTime && <span style={{ fontSize: '13px', color: 'rgba(232,230,224,0.4)' }}>{post.readingTime} min læsning</span>}
+            {/* Small author block + reading time */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '8px' }}>
+              {post.author ? (
+                <AuthorMeta
+                  author={post.author}
+                  lastUpdated={post.lastUpdated}
+                  publishedAt={post.publishedAt}
+                />
+              ) : (
+                <div style={{ display: 'flex', gap: '20px', paddingBottom: '32px', borderBottom: '1px solid rgba(255,255,255,0.07)', marginBottom: '40px', flexWrap: 'wrap', width: '100%' }}>
+                  {date && <span style={{ fontSize: '13px', color: 'rgba(232,230,224,0.4)' }}>{date}</span>}
+                  {post.readingTime && <span style={{ fontSize: '13px', color: 'rgba(232,230,224,0.4)' }}>{post.readingTime} min læsning</span>}
+                </div>
+              )}
+              {post.author && post.readingTime && (
+                <span style={{ fontSize: '12px', color: 'rgba(232,230,224,0.3)', marginBottom: '36px' }}>{post.readingTime} min læsning</span>
+              )}
             </div>
 
+            {/* Body */}
             <div className="prose-dark">
               {post.body && <PortableText value={post.body} components={ptComponents} />}
             </div>
 
-            {/* Mobile CTA — shown below article on small screens */}
-            <div className="rp-post-sidebar-cta" style={{ display: 'none', marginTop: '40px', background: 'rgba(232,160,32,0.07)', border: '1px solid rgba(232,160,32,0.2)', borderRadius: '12px', padding: '24px' }}>
+            {/* Full author bio */}
+            {post.author && <AuthorBio author={post.author} />}
+
+            {/* Mobile CTA */}
+            <div className="rp-post-sidebar-cta" style={{ display: 'none', marginTop: '24px', background: 'rgba(232,160,32,0.07)', border: '1px solid rgba(232,160,32,0.2)', borderRadius: '12px', padding: '24px' }}>
               <h4 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '15px', fontWeight: 700, color: '#fff', marginBottom: '10px' }}>Klar til at handle?</h4>
               <p style={{ fontSize: '13px', color: 'rgba(232,230,224,0.5)', lineHeight: 1.6, marginBottom: '16px', fontWeight: 300 }}>Se vores sammenligning af de bedste prediction market platforme.</p>
               <Link href="/platforme" style={{ display: 'block', background: '#e8a020', color: '#0f172a', padding: '10px 16px', borderRadius: '7px', fontSize: '13.5px', fontWeight: 600, textDecoration: 'none', textAlign: 'center' }}>Sammenlign platforme</Link>
             </div>
           </article>
 
-          {/* Sticky sidebar — desktop only */}
+          {/* ── Sticky sidebar ── */}
           <aside className="rp-post-sidebar">
-            <div className="rp-hide-mobile" style={{ background: '#1e293b', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px', padding: '24px', marginBottom: '16px' }}>
-              <h4 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '13px', fontWeight: 600, color: 'rgba(232,230,224,0.4)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: '16px' }}>
-                Indholdsfortegnelse
-              </h4>
-              <p style={{ fontSize: '13px', color: 'rgba(232,230,224,0.3)', fontStyle: 'italic' }}>
-                Navigér i artiklen via overskrifterne.
-              </p>
+            {/* TOC — auto-populated from headings */}
+            <div className="rp-hide-mobile">
+              <TableOfContents body={post.body || []} />
             </div>
 
+            {/* CTA box */}
             <div className="rp-hide-mobile" style={{ background: 'rgba(232,160,32,0.07)', border: '1px solid rgba(232,160,32,0.2)', borderRadius: '12px', padding: '24px' }}>
               <h4 style={{ fontFamily: 'Bricolage Grotesque, sans-serif', fontSize: '15px', fontWeight: 700, color: '#fff', marginBottom: '10px' }}>
                 Klar til at handle?
@@ -194,6 +224,7 @@ export default async function PostPage({ params }: Props) {
               </Link>
             </div>
           </aside>
+
         </div>
       </div>
       <Footer />

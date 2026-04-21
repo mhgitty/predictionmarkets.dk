@@ -37,11 +37,20 @@ export async function getPostBySlug(slug: string) {
       excerpt,
       body,
       publishedAt,
+      lastUpdated,
       readingTime,
       featuredImage,
       metaTitle,
       metaDescription,
-      category-> { name, slug, emoji }
+      category-> { name, slug, emoji },
+      author-> {
+        name,
+        bio,
+        linkedin,
+        x,
+        facebook,
+        "imageUrl": image.asset->url
+      }
     }`,
     { slug }
   )

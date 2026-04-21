@@ -205,6 +205,13 @@ export const postType = defineType({
       ],
     }),
     defineField({
+      name: 'author',
+      title: 'Forfatter',
+      type: 'reference',
+      to: [{ type: 'author' }],
+      group: 'content',
+    }),
+    defineField({
       name: 'readingTime',
       title: 'Læsetid (minutter)',
       type: 'number',
@@ -215,6 +222,13 @@ export const postType = defineType({
       title: 'Publiceret dato',
       type: 'datetime',
       group: 'content',
+    }),
+    defineField({
+      name: 'lastUpdated',
+      title: 'Sidst opdateret',
+      type: 'datetime',
+      group: 'content',
+      description: 'Opdater denne dato når artiklen redigeres væsentligt',
     }),
     defineField({
       name: 'metaTitle',

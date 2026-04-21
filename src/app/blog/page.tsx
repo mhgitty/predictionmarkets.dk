@@ -8,6 +8,9 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Guides & Artikler',
   description: 'Alle vores guides og artikler om prediction markets på dansk.',
+  alternates: {
+    canonical: 'https://predictionmarkets.dk/blog',
+  },
 }
 
 export default async function BlogPage() {
