@@ -19,22 +19,56 @@ type Props = { params: Promise<{ slug: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
+  const url = `${SITE_URL}/${slug}`
 
   const post = await getPostBySlug(slug)
   if (post) {
+    const title = post.metaTitle || post.title
+    const description = post.metaDescription || post.excerpt || ''
     return {
-      title: post.metaTitle || post.title,
-      description: post.metaDescription || post.excerpt,
-      alternates: { canonical: `${SITE_URL}/${slug}` },
+      title,
+      description,
+      alternates: { canonical: url },
+      openGraph: {
+        type: 'article',
+        locale: 'da_DK',
+        url,
+        title,
+        description,
+        siteName: 'PredictionMarkets.dk',
+        publishedTime: post.publishedAt,
+        modifiedTime: post.lastUpdated || post.publishedAt,
+        authors: post.author?.name ? [post.author.name] : undefined,
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
+      },
     }
   }
 
   const page = await getPageBySlug(slug)
   if (page) {
+    const title = page.metaTitle || page.title
+    const description = page.metaDescription || ''
     return {
-      title: page.metaTitle || page.title,
-      description: page.metaDescription,
-      alternates: { canonical: `${SITE_URL}/${slug}` },
+      title,
+      description,
+      alternates: { canonical: url },
+      openGraph: {
+        type: 'website',
+        locale: 'da_DK',
+        url,
+        title,
+        description,
+        siteName: 'PredictionMarkets.dk',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
+      },
     }
   }
 
@@ -151,6 +185,24 @@ export default async function SlugPage({ params }: Props) {
 
 // ── Post renderer ─────────────────────────────────────────────────────────────
 
+function buildBreadcrumbJsonLd(post: any, url: string) {
+  const items: any[] = [
+    { '@type': 'ListItem', position: 1, name: 'Hjem', item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: 'Guides', item: `${SITE_URL}/blog` },
+  ]
+  if (post.category) {
+    items.push({ '@type': 'ListItem', position: 3, name: post.category.name, item: `${SITE_URL}/blog?kategori=${post.category.slug?.current}` })
+    items.push({ '@type': 'ListItem', position: 4, name: post.title, item: url })
+  } else {
+    items.push({ '@type': 'ListItem', position: 3, name: post.title, item: url })
+  }
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items,
+  }
+}
+
 function PostContent({ post, slug }: { post: any; slug: string }) {
   const date = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -159,10 +211,12 @@ function PostContent({ post, slug }: { post: any; slug: string }) {
   const pageUrl = `${SITE_URL}/${slug}`
   const faqJsonLd = buildFaqJsonLd(post.body)
   const articleJsonLd = buildArticleJsonLd(post, pageUrl)
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd(post, pageUrl)
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       {faqJsonLd && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       )}

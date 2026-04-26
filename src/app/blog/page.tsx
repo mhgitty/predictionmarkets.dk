@@ -11,6 +11,19 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://predictionmarkets.dk/blog',
   },
+  openGraph: {
+    type: 'website',
+    locale: 'da_DK',
+    url: 'https://predictionmarkets.dk/blog',
+    title: 'Guides & Artikler | PredictionMarkets.dk',
+    description: 'Alle vores guides og artikler om prediction markets på dansk.',
+    siteName: 'PredictionMarkets.dk',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Guides & Artikler | PredictionMarkets.dk',
+    description: 'Alle vores guides og artikler om prediction markets på dansk.',
+  },
 }
 
 export default async function BlogPage() {

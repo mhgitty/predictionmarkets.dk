@@ -10,6 +10,19 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://predictionmarkets.dk/platforme',
   },
+  openGraph: {
+    type: 'website',
+    locale: 'da_DK',
+    url: 'https://predictionmarkets.dk/platforme',
+    title: 'Sammenlign Prediction Market Platforme | PredictionMarkets.dk',
+    description: 'Sammenlign de bedste prediction market platforme. Se gebyrer, markeder, og find den bedste platform for dig.',
+    siteName: 'PredictionMarkets.dk',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sammenlign Prediction Market Platforme | PredictionMarkets.dk',
+    description: 'Sammenlign de bedste prediction market platforme. Se gebyrer, markeder, og find den bedste platform for dig.',
+  },
 }
 
 export default async function PlatformerPage() {
